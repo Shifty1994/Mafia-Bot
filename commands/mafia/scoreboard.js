@@ -154,6 +154,8 @@ module.exports = {
 
     const { embeds, components } = createScoreboard(members, voiceChannel);
 
+    console.log(`[${new Date().toISOString()}] /scoreboard used`);
+
     await interaction.reply({ embeds, components });
   },
 

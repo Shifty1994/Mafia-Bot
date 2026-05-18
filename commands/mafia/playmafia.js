@@ -60,13 +60,26 @@ module.exports = {
       console.error("Defer failed:", err);
     });
 
-    console.log(
-      `[${new Date().toISOString()}] /playmafia used | mode: ${mode} | force: ${forceStart}`,
-    );
+    logPlayMafia(interaction, mode, forceStart, extraMafia, extraJester);
 
     await runMafiaLogic(interaction, mode, forceStart);
   },
 };
+
+// ====================
+// Logging Function
+// ====================
+function logPlayMafia(interaction, mode, forceStart, extraMafia, extraJester) {
+  let extras = [];
+  if (extraMafia === true) extras.push("Extra Mafia: +1");
+  if (extraJester === true) extras.push("Extra Jester: +1");
+
+  console.log(
+    `[${new Date().toISOString()}] /playmafia used | ` +
+      `mode: ${mode} | force: ${forceStart}` +
+      (extras.length > 0 ? ` | ${extras.join(" | ")}` : ""),
+  );
+}
 
 // Shared core logic
 async function runMafiaLogic(interaction, mode, forceStart) {

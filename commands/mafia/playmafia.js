@@ -176,7 +176,8 @@ async function runMafiaLogic(interaction, mode, forceStart) {
             `• Normal players get **1 point** for winning the game\n` +
             `• Normal players get **1 point** for correctly guessing the Mafia\n` +
             `• The **Mafia** gets **3 points** if they lose AND avoid majority votes\n` +
-            `${jesterCount > 0 ? `• The **Jester** gets **1 point per vote** they receive` : ""}`,
+            `${jesterCount > 0 ? `• The **Jester** gets **1 point per vote** they receive` : ""}\n` +
+            `**Tip:** Use **/scoreboard** to keep track of points if needed!`,
         )
         .setFooter({ text: "Good luck!" })
         .setTimestamp();
@@ -222,7 +223,8 @@ async function runMafiaLogic(interaction, mode, forceStart) {
             "**Mafia wins** if they complete **8 or more** objectives together, and not get found out.\n" +
             "**Town wins** if they complete **2 or more** objectives **AND** correctly vote out at least one Mafia at the end.\n" +
             "**Jester wins** if they receive majority votes at the end.\n\n" +
-            "**End of raid voting**: Everyone gets **as many votes as there are Mafia** (e.g. 2 Mafia = 2 votes each).",
+            "**End of raid voting**: Everyone gets **as many votes as there are Mafia** (e.g. 2 Mafia = 2 votes each).\n\n" +
+            "**Tip:** Use **/scoreboard** to keep track of points if needed!",
           inline: false,
         },
         {
@@ -335,7 +337,8 @@ async function runMafiaLogic(interaction, mode, forceStart) {
             "**Mafia wins**\n" +
             "• Mafia who die 3 or more times and avoid majority vote\n\n" +
             "**Town wins**\n" +
-            "• Players who successfully vote out one or more Mafia",
+            "• Players who successfully vote out one or more Mafia\n\n" +
+            `**Tip:** Use **/scoreboard** to keep track of points if needed!`,
           inline: false,
         },
       )

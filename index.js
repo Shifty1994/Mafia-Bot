@@ -9,7 +9,7 @@ if (!process.env.TOKEN) {
 const client = new Discord.Client({
   intents: [
     Discord.GatewayIntentBits.Guilds,
-    Discord.GatewayIntentBits.GuildMembers,
+    //Discord.GatewayIntentBits.GuildMembers,
     Discord.GatewayIntentBits.GuildVoiceStates,
   ],
 });
@@ -31,6 +31,9 @@ client.loadCommands(bot, false);
 client.login(process.env.TOKEN);
 
 // Silent keep-alive heartbeat (prevents Railway from killing the bot)
-setInterval(() => {
-  // Do nothing visible - just stay alive
-}, 5 * 60 * 1000);   // Every 5 minutes
+setInterval(
+  () => {
+    // Do nothing visible - just stay alive
+  },
+  5 * 60 * 1000,
+); // Every 5 minutes

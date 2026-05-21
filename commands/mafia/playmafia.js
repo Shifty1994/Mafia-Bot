@@ -54,14 +54,13 @@ module.exports = {
   async execute(interaction) {
     const mode = interaction.options.getString("gamemode") || "kara";
     const forceStart = interaction.options.getBoolean("force") || false;
+    const extraMafia = interaction.options.getBoolean("extra_mafia");
+    const extraJester = interaction.options.getBoolean("extra_jester");
 
-    // Simple defer - this worked before
-    await interaction.deferReply().catch((err) => {
-      console.error("Defer failed:", err);
-    });
-
+    // Log usage
     logPlayMafia(interaction, mode, forceStart, extraMafia, extraJester);
 
+    // Main logic
     await runMafiaLogic(interaction, mode, forceStart);
   },
 };

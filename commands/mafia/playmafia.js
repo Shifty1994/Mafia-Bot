@@ -52,6 +52,11 @@ module.exports = {
     ),
 
   async execute(interaction) {
+    // IMMEDIATE defer - prevents timeout
+    await interaction.deferReply().catch((err) => {
+      console.error("Defer failed:", err);
+    });
+
     const mode = interaction.options.getString("gamemode") || "kara";
     const forceStart = interaction.options.getBoolean("force") || false;
     const extraMafia = interaction.options.getBoolean("extra_mafia");
@@ -97,11 +102,11 @@ async function runMafiaLogic(interaction, mode, forceStart) {
     if (interaction.deferred || interaction.replied) {
       return interaction.editReply(options).catch((err) => {
         console.error("editReply failed:", err);
-        return interaction.followUp(options);
+        return interaction.followUp(options).catch(() => {});
       });
     }
 
-    return interaction.reply(options);
+    return interaction.reply(options).catch(() => {});
   };
 
   const voiceChannel = interaction.member?.voice?.channel;

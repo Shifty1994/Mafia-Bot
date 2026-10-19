@@ -16,15 +16,19 @@ module.exports = {
       try {
         await command.execute(interaction);
       } catch (error) {
-        console.error(error);
+        console.error("Slash command error:", error);
 
-        const replyMethod =
-          interaction.replied || interaction.deferred ? "followUp" : "reply";
+        try {
+          const replyMethod =
+            interaction.replied || interaction.deferred ? "followUp" : "reply";
 
-        await interaction[replyMethod]({
-          content: "Error executing command.",
-          flags: MessageFlags.Ephemeral,
-        }).catch(() => {});
+          await interaction[replyMethod]({
+            content: "There was an error while executing this command.",
+            flags: MessageFlags.Ephemeral,
+          });
+        } catch (e) {
+          // Interaction already expired — ignore
+        }
       }
 
       return;
@@ -37,6 +41,7 @@ module.exports = {
       const customId = interaction.customId;
 
       try {
+        // Acknowledge the button click immediately
         await interaction.deferUpdate().catch(() => {});
 
         const scoreboardCommand = bot.client.commands.get("scoreboard");
@@ -48,7 +53,7 @@ module.exports = {
         const vcId = voiceChannel.id;
 
         // ========================
-        // PLAYER CLICK
+        // PLAYER CLICK (+1 / -1)
         // ========================
         if (customId.startsWith("score_player_")) {
           const [, , voiceChannelId, userId] = customId.split("_");
@@ -60,13 +65,13 @@ module.exports = {
           scoreboardCommand.updateScore(vcId, userId, amount);
 
           const members = voiceChannel.members.filter((m) => !m.user.bot);
-
           const { embeds, components } = scoreboardCommand.createScoreboard(
             members,
             voiceChannel,
           );
 
-          return interaction.editReply({ embeds, components });
+          await interaction.editReply({ embeds, components });
+          return;
         }
 
         // ========================
@@ -111,19 +116,16 @@ module.exports = {
           const members = voiceChannel.members.filter((m) => !m.user.bot);
           const scoresMap = scoreboardCommand.getScores(vcId);
 
-          // Build leaderboard array
           const results = [];
 
           for (const member of members.values()) {
             const points = scoresMap.get(member.id) || 0;
-
             results.push({
               name: member.displayName,
               points,
             });
           }
 
-          // Sort highest first
           results.sort((a, b) => b.points - a.points);
 
           const highest = results[0]?.points ?? 0;
@@ -138,7 +140,6 @@ module.exports = {
             .map((p, i) => {
               const medal =
                 i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : "•";
-
               return `${medal} **${p.name}** — ${p.points} pts`;
             })
             .join("\n");
@@ -165,7 +166,7 @@ module.exports = {
         }
 
         // ========================
-        // REFRESH UI (for paging/toggle)
+        // REFRESH UI (for paging / toggle)
         // ========================
         const members = voiceChannel.members.filter((m) => !m.user.bot);
 

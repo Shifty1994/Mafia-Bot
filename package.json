@@ -1,7 +1,7 @@
 {
   "name": "mafia-bot",
   "version": "1.0.0",
-  "description": "Discord bot for Mafia-style social deduction in voice channels (WoW raids & Rocket League)",
+  "description": "Discord bot for Mafia-style social deduction in voice channels WoW group activities, Rocket League and other games.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",

@@ -1,8 +1,8 @@
 <div align="center">
 
-# Mafia Bot – Raid Edition
+# Mafia Bot – Group Edition
 
-**Turn boring Karazhan runs into chaotic betrayal games**
+**Turn any group activity into a chaotic betrayal game**
 
 [![Discord.js](https://img.shields.io/badge/discord.js-v14-blue?logo=discord)](https://discord.js.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-≥20-brightgreen?logo=node.js)](https://nodejs.org/)
@@ -10,24 +10,24 @@
 
 </div>
 
-**Have your Karazhan 10-man groups become too predictable and stale?**  
+**Have your groups become too predictable and stale?**  
 **Time to add Mafia drama, suspicion, gold incentives and maximum chaos.**
 
-This Discord bot transforms your World of Warcraft raid nights (especially **Karazhan 10-man**) into a social deduction game where some players are secretly Mafia trying to die ~3 times, one chaotic Jester wants to get voted, and everyone else tries to figure it out.
+This Discord bot transforms World of Warcraft raids, dungeons, and other group activities into a social deduction game where some players are secretly Mafia trying to die ~3 times, one chaotic Jester wants to get voted, and everyone else tries to figure it out.
 
 **Bonus mode** also works perfectly in Rocket League parties/custom games.
 
-### How to Play (Karazhan / Raid Mode)
+### How to Play (Classic Mode)
 
 1. Everyone joins the **same Discord voice channel**
-2. Raid leader types  
+2. Group leader types  
    `/playmafia`  
-   (or `/playmafia mode:kara force:true` if testing with few people)
+    (or `/playmafia gamemode:classic force:true` if testing with few people)
 3. Bot secretly assigns roles via DM:
    - **~20% Mafia** — know each other, goal = **die 3+ times** (excl. big wipes)
    - **~10% Jester** — goal = act suspicious so people vote you at the end
    - Rest = **Town** — identify the impostors
-4. Play the raid normally
+4. Play the activity normally
 5. After the run → vote in text chat (each player names suspects)
 6. Gold is split based on votes + death count
 
@@ -53,9 +53,10 @@ Gold is divided evenly among **all winners**:
 
 | Command                       | Description                                      |
 |-------------------------------|--------------------------------------------------|
-| `/playmafia`                  | Karazhan/Raid mode (auto-scales roles)           |
-| `/playmafia mode:kara`        | Explicit Karazhan mode                           |
-| `/playmafia mode:rl`          | Rocket League mode (1 secret Mafia)              |
+| `/playmafia`                  | Classic mode (auto-scales roles)                 |
+| `/playmafia gamemode:classic` | Explicit Classic mode                            |
+| `/playmafia gamemode:sabotage`| Objective-based Sabotage mode                    |
+| `/playmafia gamemode:simple`  | Simple mode (1 secret Mafia)                     |
 | `/playmafia force:true`       | Force start even with < 2 players (testing)      |
 
 ### Features

@@ -52,6 +52,11 @@ module.exports = {
     ),
 
   async execute(interaction) {
+    // IMMEDIATE defer - prevents timeout
+    await interaction.deferReply().catch((err) => {
+      console.error("Defer failed:", err);
+    });
+
     const mode = interaction.options.getString("gamemode") || "classic";
     const forceStart = interaction.options.getBoolean("force") || false;
     const extraMafia = interaction.options.getBoolean("extra_mafia");

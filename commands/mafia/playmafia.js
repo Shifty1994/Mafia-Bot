@@ -52,7 +52,15 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    // 1. Defer immediately and safely
+    const mode = interaction.options.getString("gamemode") || "classic";
+    const forceStart = interaction.options.getBoolean("force") || false;
+    const extraMafia = interaction.options.getBoolean("extra_mafia");
+    const extraJester = interaction.options.getBoolean("extra_jester");
+
+    // Always log first
+    logPlayMafia(interaction, mode, forceStart, extraMafia, extraJester);
+
+    // Then try to defer
     try {
       await interaction.deferReply();
     } catch (err) {
@@ -60,18 +68,9 @@ module.exports = {
         "Defer failed (interaction already timed out):",
         err.message,
       );
-      return; // Stop here if we can't respond anymore
+      // Don’t return — let it continue and try to reply anyway
     }
 
-    const mode = interaction.options.getString("gamemode") || "classic";
-    const forceStart = interaction.options.getBoolean("force") || false;
-    const extraMafia = interaction.options.getBoolean("extra_mafia");
-    const extraJester = interaction.options.getBoolean("extra_jester");
-
-    // Log usage
-    logPlayMafia(interaction, mode, forceStart, extraMafia, extraJester);
-
-    // Main logic
     await runMafiaLogic(interaction, mode, forceStart);
   },
 };
